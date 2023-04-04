@@ -2,7 +2,7 @@ package com.example.classesandoops
 
 import java.util.Arrays
 
-class Account (var accHolderName: String,private val accountNumber: Int,private var balance: Float) {
+class Account (var accHolderName: String, private val accountNumber: Int, private var balance: Float) {
     // val accHolderName: String = accHolderName
     // private val accountNumber: Int = accountNumber
     // private var balance: Float = balance
@@ -10,7 +10,7 @@ class Account (var accHolderName: String,private val accountNumber: Int,private 
     init {
         println("initializing account of $accHolderName having $balance in his/her account")
     }
-    constructor(balance: Float) : this("shyam",975647,0f) {
+    constructor(balance: Float) : this( "shyam", 975647, 0f) {
         println("balance will be updated")
         this.balance += balance
     }
@@ -34,7 +34,6 @@ class Account (var accHolderName: String,private val accountNumber: Int,private 
 
 open class LateInitProp {
     lateinit var message: String
-
     fun printMessage() {
         if (::message.isInitialized) {
             println(message)
@@ -48,7 +47,6 @@ class OuterClass {
     public val outerName: String = "Outer Class"
 
     class NestedClass {
-
         fun printName() {
             println("This is a Nested Class ")
         }

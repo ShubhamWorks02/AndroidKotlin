@@ -26,7 +26,7 @@ fun main(){
     car.getInfo()
     println(car.Engine(4, 5).getEngineInfo())
     val bike = Bike(4,850)
-    bike.maxSpeed = 0 // setter will be called
+    bike.maxSpeed = 100 // setter will be called
     println(bike.maxSpeed)  //getter will be called
     /*
     In Kotlin, late-initialized properties and variables are used when we need to initialize a property
@@ -47,6 +47,56 @@ fun main(){
     val innerClass = outerClass.InnerClass()
     innerClass.printName()
 
+    // 4/4
+    // using interfaces
+    bike.start()
+    // println(bike.toString()) // cant have Readable result bcz it is not data class
+
+    //enum
+    val build = BuildVariant.release
+    println(build.status)
+    val day = DAYS.SUNDAY
+    println(BuildVariant.valueOf("beta"))
+    variantCheck(build)
+    for (day in DAYS.values()) {
+        println("${day.ordinal} = ${day.name}")
+    }
+    println("${DAYS.valueOf("WEDNESDAY")}")
+
+    //Employee implementation
+    val shyam = Employee( "shyam", 100)
+    val (name,salary) = shyam // destructuring
+    println(name)
+    // Destructuring works on local variable only
+    // compiles down to val name = shyam.component1() , val salary = shyam.component2()
+    // The componentN() functions need to be marked with the operator keyword to allow using them
+    // in a destructuring declaration.
+    val shubham = shyam.copy(salary = 5)
+    println(shyam.component1())
+    val hashOfShubham = shubham.hashCode()
+    val hashOfShyam = shyam.hashCode()
+    println(hashOfShubham)
+    println(hashOfShyam)
+    println(hashOfShyam.equals(hashOfShubham))
+    shubham.name = "Shubham"
+    println(shyam.toString()) // it will only print primary constructor parameter
+    println(shubham.toString())
+    shubham.salary = 90
+    println(shyam.toString())
+    println(shubham.toString())
+    val darshan = shyam.copy()
+    darshan.salary = 800
+    println(darshan.toString())
+    println(shyam.toString())
+
+    //Aircraft class implementation
+    val chopper = AirCraft.Helicopter()
+    chopper.fly()
+    println(chopper.type)
+    val airBus = Aeroplane()
+    val waterCraft = Aeroplane.HoverCraft()
+    waterCraft.fly()
+    checkType(chopper)
 }
 
 

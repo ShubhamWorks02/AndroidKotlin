@@ -1,5 +1,3 @@
-import kotlin.math.max
-
 open class Vehicle(
     private val numberOfWheels: Int,
     open val price: Float,
@@ -16,7 +14,7 @@ class Car(
     val isSportsCar: Boolean ,
     val isAutomatic: Boolean,
     override val price: Float // overriding property
-) : Vehicle(4, 4500f, "Hyundai") {
+) : Vehicle( 4, 4500f, "Hyundai") {
 
     init {
         println("car is having $numberOfGears gears")
@@ -43,17 +41,22 @@ class Car(
 
 }
 
-class Bike(val numberOfGears: Int, maxSpeed: Int): Vehicle(2,150f,"Tvs") {
-         var maxSpeed: Int = maxSpeed // declaring as private and using getter setter to perform action
-             // get() = field
-             get() {
-                println("getter called")
-                return field
-            }
-             set(newValue) { // put private set if you want to it to be settable only in class
-                println("maxSpeed set")
-                field = newValue
-            }
+class Bike(val numberOfGears: Int, maxSpeed: Int): Vehicle(2,150f,"Tvs"),VehicleAction {
+    var maxSpeed: Int = maxSpeed // declaring as private and using getter setter to perform action
+        get() {
+            println("getter called")
+            return field
+        }
+        set(newValue) { // put private set if you want to it to be settable only in class
+            println("maxSpeed set")
+            field = newValue
+        }
+    override val vehicleType: String
+        get(){
+            // getter property will check that instance is type of bike then it will give VehicleType of Bike
+            if (this is Bike) return "Bike"
+            return "Vehicle"
+        }
 
         init {
             println("Bike is having $numberOfGears gears and $maxSpeed max-speed")
@@ -63,7 +66,13 @@ class Bike(val numberOfGears: Int, maxSpeed: Int): Vehicle(2,150f,"Tvs") {
     override fun getInfo() {
         println("Bike is having ${this.numberOfGears} gears and $maxSpeed max-speed")
     }
+    override fun start() {
+        println("bike is starting and can reach upto the speed of $maxSpeed")
+    }
 
+    override fun stop() {
+        println("bike has stopped")
+    }
 }
 
 open class Girl {
@@ -77,4 +86,39 @@ open class Girl {
             else
                 ageOfGirl-3
         }
+}
+//4/4/23
+
+interface VehicleAction {
+    val vehicleType: String
+    fun start() {
+        println("vehicle is starting")
+    }
+    fun stop()
+
+}
+ interface TwoWheelerAction: VehicleAction {
+     override fun start() {
+         println("dfdsf")
+         //super.start()
+     }
+ }
+
+class Scooter: TwoWheelerAction {
+    override val vehicleType: String
+        get() = "Scooter"
+    override fun start() {
+        super.start()
+        println()
+    }
+    override fun stop() {
+
+    }
+}
+
+fun main(){
+    val ec = Scooter()
+    ec.start()
+    val h = Bike()
+    println(h.vehicleType)
 }
