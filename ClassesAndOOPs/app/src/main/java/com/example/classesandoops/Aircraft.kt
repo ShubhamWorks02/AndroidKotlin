@@ -4,6 +4,8 @@ package com.example.classesandoops
 
 sealed interface AirCraftInfo {
     fun getInfo()
+    // we cant extend sealed interface to another package so in real life scenario client cant
+    // implement sealed interface functionality
 }
 //sealed class implementing sealed interface
 

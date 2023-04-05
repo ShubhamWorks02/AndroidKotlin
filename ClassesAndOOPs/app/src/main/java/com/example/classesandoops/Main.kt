@@ -3,9 +3,11 @@ package com.example.classesandoops
 import Bike
 import Car
 import Girl
+import Scooter
+import android.provider.ContactsContract.Data
 
 class Main
-fun main(){
+fun main() {
     val accountHolder = Account("shubham", 875569 , 832.5f)
     // val accountHolder = Account(800f)
     println(accountHolder.checkBalance())
@@ -53,10 +55,11 @@ fun main(){
     // println(bike.toString()) // cant have Readable result bcz it is not data class
 
     //enum
-    val build = BuildVariant.release
+    val build = BuildVariant.Release
     println(build.status)
-    val day = DAYS.SUNDAY
-    println(BuildVariant.valueOf("beta"))
+    val toDay = DAYS.THURSDAY
+    toDay.weekend()
+    println(BuildVariant.valueOf("Beta"))
     variantCheck(build)
     for (day in DAYS.values()) {
         println("${day.ordinal} = ${day.name}")
@@ -97,7 +100,58 @@ fun main(){
     val waterCraft = Aeroplane.HoverCraft()
     waterCraft.fly()
     checkType(chopper)
+
+    // Vehicle
+    val activa = Scooter()
+    activa.start()
+    val yamaha = Bike()
+    println(yamaha.vehicleType)
+
+    // Equality
+    println(hashOfShyam == hashOfShubham)
+    println(hashOfShyam === hashOfShubham)
+    // For values represented by primitive types at runtime (for example, Int),
+    // the === equality check is equivalent to the == check.
+    val jupiter = Bike()
+    var olaElectric = Bike()
+    println(jupiter === olaElectric) //false
+    olaElectric = jupiter
+    println(jupiter === olaElectric) //true Referential equality
+
+    // Singleton concept - Object
+    val mySql = Database
+    println(mySql.capacityInfo())
+    mySql.usedSpace = 11 // Usedspace using getter to customize used space according to private prop capacity
+    println(mySql.usedSpace)
+    // val doubleCapacity = object: Database() {
+    // override fun capacityInfo() //Cannot inherit from a singleton
+    // }
+    val piston8 = object: Bike(5,200) { // annonymous object expression use with constructor parameters (explicit)
+        override fun getInfo() {
+            println("bike is having 8 piston")
+        }
+    }
+    /*
+    Make sure to only compare data objects structurally (using the == operator) and never by reference
+    (using the === operator). This helps you avoid pitfalls when more than one instance of a data object exists at runtime.
+     */
+    piston8.getInfo() // anonymous object expression overridden method called
+    piston8.start()
+    println(piston8.maxSpeed)
+
 }
 
-
+/*
+in case of data object declaration
+No copy() function. Because a data object declaration is intended to be used as singleton objects,
+no copy() function is generated. The singleton pattern restricts the instantiation of a class to a single instance,
+which would be violated by allowing copies of the instance to be created.
+No componentN() function. Unlike a data class, a data object does not have any data properties.
+Since attempting to destructure such an object without data properties would not make sense,
+no componentN() functions are generated.
+*/
+/*
+enum classes can't extend a sealed class (as well as any other class), but they can implement sealed interfaces.
+An object declaration inside a class can be marked with the companion keyword
+*/
 

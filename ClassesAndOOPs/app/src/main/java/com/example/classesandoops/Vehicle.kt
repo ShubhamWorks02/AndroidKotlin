@@ -41,7 +41,7 @@ class Car(
 
 }
 
-class Bike(val numberOfGears: Int, maxSpeed: Int): Vehicle(2,150f,"Tvs"),VehicleAction {
+open class Bike(val numberOfGears: Int, maxSpeed: Int): Vehicle(2,150f,"Tvs"),VehicleAction {
     var maxSpeed: Int = maxSpeed // declaring as private and using getter setter to perform action
         get() {
             println("getter called")
@@ -95,7 +95,6 @@ interface VehicleAction {
         println("vehicle is starting")
     }
     fun stop()
-
 }
  interface TwoWheelerAction: VehicleAction {
      override fun start() {
@@ -114,11 +113,4 @@ class Scooter: TwoWheelerAction {
     override fun stop() {
 
     }
-}
-
-fun main(){
-    val ec = Scooter()
-    ec.start()
-    val h = Bike()
-    println(h.vehicleType)
 }
